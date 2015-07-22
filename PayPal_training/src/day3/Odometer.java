@@ -68,4 +68,12 @@ public class Odometer {
         currentPosition = currentPosition - 1 < 0 ? this.validNumbers.size() - 1 : currentPosition - 1;
         return this.validNumbers.get( currentPosition );
     }
+    
+    public int computeDistance(String reading1, String reading2) {
+        return Math.abs(validNumbers.indexOf(reading1) - validNumbers.indexOf(reading2));
+    }
+    
+    public int getDistance() {
+        return this.currentPosition;
+    }
 }
