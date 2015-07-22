@@ -6,7 +6,6 @@
 package day3;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -20,15 +19,13 @@ public class Odometer {
     Odometer(int numDigits) {
         this.numDigits = numDigits;
         this.validNumbers = new ArrayList<String>();
-        this.init();
-    }
-    
-    private void init(){
-        boolean numbers[];
-        numbers = new boolean[ (int)Math.pow( 10, this.numDigits) ];
-        for ( int i = 0; i < numbers.length; i++ ) {
-            if( isValid(getLeadingZeroString(i)) ) {
-                this.validNumbers.add(this.getLeadingZeroString(i));
+        
+        final int UPPER_BOUND = (int)Math.pow( 10, this.numDigits);
+        final int LOWER_BOUND = (int)Math.pow( 10, this.numDigits - 1);
+        
+        for ( int i = LOWER_BOUND; i < UPPER_BOUND; i++ ) {
+            if( isValid(Integer.toString(i)) ) {
+                this.validNumbers.add(Integer.toString(i));
             }
         }
     }
@@ -44,15 +41,6 @@ public class Odometer {
         }
         
         return true;
-    }
-    
-    private String getLeadingZeroString(int n) {
-        String leadingZeroNumber = Integer.toString(n);
-        while ( leadingZeroNumber.length() < this.numDigits ) {
-            leadingZeroNumber = "0" + leadingZeroNumber;
-        }
-        
-        return leadingZeroNumber;
     }
     
     public String getCurrentValue() {
@@ -76,4 +64,10 @@ public class Odometer {
     public int getDistance() {
         return this.currentPosition;
     }
+
+    public boolean reset() {
+        this.currentPosition = 0;
+        return true;
+    }
+    
 }
