@@ -10,29 +10,22 @@ const int ALPHABET2PRIMES[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 4
 
 map <unsigned long long int, vector<string> > hashMap;
 
-unsigned long long int hash( string str )
-{
+unsigned long long int hash( string str ) {
     unsigned long long int hash = 1;
 
-    for ( int i = 0; i < str.length(); i++ )
-    {
-        if ( 'a' <= str[i] && str[i] <= 'z')
-        {
+    for ( int i = 0; i < str.length(); i++ ) {
+        if ( 'a' <= str[i] && str[i] <= 'z') {
             hash *= ALPHABET2PRIMES[ str[i] - 'a' ];
         }
     }
     return hash;
 }
 
-void printAnagrams()
-{
-    for ( std::map<unsigned long long int, vector<string> >::const_iterator i = hashMap.begin(); i != hashMap.end(); ++i)
-    {
+void printAnagrams() {
+    for ( std::map<unsigned long long int, vector<string> >::const_iterator i = hashMap.begin(); i != hashMap.end(); ++i) {
         vector<string> wordList = i->second;
-        if ( wordList.size() > 1 )
-        {
-            for ( int j = 0; j < wordList.size(); j++ )
-            {
+        if ( wordList.size() > 1 ) {
+            for ( int j = 0; j < wordList.size(); j++ ) {
                 cout << wordList[j] << "\t";
             }
             cout << endl;
@@ -40,28 +33,22 @@ void printAnagrams()
     }
 }
 
-void insertIntoHashMap( unsigned long long int hashValue, string word )
-{
-    if ( hashMap.find( hashValue ) == hashMap.end() )
-    {
+void insertIntoHashMap( unsigned long long int hashValue, string word ) {
+    if ( hashMap.find( hashValue ) == hashMap.end() ) {
         vector<string> wordList ( 1, word );
         hashMap.insert( std::pair<unsigned long long int, vector<string> >( hashValue, wordList) );
-    }
-    else
-    {
+    } else {
         hashMap[ hashValue ].push_back( word );
     }
 }
 
-void processDictionary( string filePath )
-{
+void processDictionary( string filePath ) {
     ifstream file;
     file.open( filePath.c_str() );
     string word;
     getline( file, word );
 
-    while( !word.empty() )
-    {
+    while( !word.empty() ) {
         unsigned long long int hashValue = hash( word );
         insertIntoHashMap( hashValue, word );
 
@@ -71,7 +58,6 @@ void processDictionary( string filePath )
     printAnagrams();
 }
 
-int main()
-{
+int main() {
     processDictionary( "sowpods.txt" );
 }
