@@ -16,7 +16,7 @@ class scrabbleWordHelper {
 	public:
 		string rack;
 		
-		ScrabbleWordHelper(string rack)	{
+		scrabbleWordHelper(string rack)	{
     		this->rack = rack;
 		}
 		
@@ -33,12 +33,20 @@ class scrabbleWordHelper {
           			if(counter & (1<<j))
             			subset += rack[j];
        			}
-        		rackSubset.insert(subset);
+       			std::pair<string, string> sortedWord = getSortedString(subset);
+        		rackSubset.insert(sortedWord.first);
     		}
+    		
 
     		for(set<string>::iterator it=rackSubset.begin(); it!=rackSubset.end(); ++it) {
         		cout << *it << endl;
     		}
+		}
+		
+		vector<string> findInSowpodsMap(string key) {
+			vector<string> x;
+			//if(sowpods.find(key))
+			//return sowpods.find( key ) ==  ? return sowpods.find( key ) -> second : x;
 		}
 		
 		std::pair<string, string> getSortedString(string word) {
@@ -82,8 +90,8 @@ bool openFile(string filename, ifstream& file) {
 }
 
 int main(int argc, char* argv[]) {
-	scrabbleWordHelper scrabble;
-	
+	scrabbleWordHelper scrabble("helol");
+	scrabble.findRackSubset();
 	if (argc < 2) {
         cout << "enter the file name";
         return 0;
