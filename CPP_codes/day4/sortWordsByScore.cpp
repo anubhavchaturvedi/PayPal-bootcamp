@@ -45,7 +45,7 @@ void writeMapToFile(map<int, string> wordValue) {
     map<int, string>::iterator it = wordValue.begin();
     ofstream outFile ("wordValue.txt");
     if (outFile.is_open()) {
-        for (it=wordValue.end(); it!=wordValue.begin(); --it) {
+        for (it=wordValue.begin(); it!=wordValue.end(); ++it) {
             outFile << it->first << "\t\t" << it->second << endl;
         }
         outFile.close();
