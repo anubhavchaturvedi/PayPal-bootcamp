@@ -2,39 +2,31 @@
 #include<map>
 #include<string>
 #include <fstream>
-#include <string>
 #include <sstream>
 using namespace std;
 #define SPACE_DELIMITER " "
 
 const int ALPHABET_SCORE[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, 21,22,23,24,25,26};
 
-
-void displayMap(std::map<int, string> wordValue) {
-	std::map<int, string>::iterator it = wordValue.begin();
-	std::cout << "\nMap contains:\n";
-	for (it=wordValue.begin(); it!=wordValue.end(); ++it) {
-  			std::cout << it->first << " => " << it->second << '\n';
-	}
+bool openFile(string filename, ifstream& file)
+{
+    file.open(filename.c_str());
+    bool fileExists = file.is_open();
+    if ( !fileExists ) {
+        cout << "unable to open file" ;
+    }
+    return fileExists;
 }
 
-void writeMapToFile(map<int, string> wordValue) {
-	int count = 0;
-  map<int, string>::iterator it = wordValue.end();
-  ofstream outFile ("wordValue.txt");
-  if (outFile.is_open()){
-    for (it=wordValue.end(); it!=wordValue.begin(); --it) {
-    	if((it->second).find_first_of(SPACE_DELIMITER) < (it->second).length()) {
-    		count ++;
-    		outFile << it->second << '\n';
-		}
+std::pair<int,string> computeScore(string str) {
+    int score = 0;
+    for ( int i = 0; i < str.length(); i++ ) {
+        char ch = str[i];
+        if ( 'a' <= ch && ch <= 'z' ) {
+            score += ALPHABET_SCORE[ ch - 'a' ];
+        }
     }
-    outFile.close();
-    cout<< count <<" words written to file";
-  }
-  else{
-    cout << "Unable to open file";
-  } 	
+    return std::pair<int,string> ( score, str );
 }
 
 void insertInMap(std::pair<int, string> currentPair, map<int, string> &valueWord) {
@@ -50,54 +42,51 @@ void insertInMap(std::pair<int, string> currentPair, map<int, string> &valueWord
   }
 }
 
-std::pair<int,string> computeScore(string str) {
-    int score = 0;
-    for ( int i = 0; i < str.length(); i++ ) {
-        char ch = str[i];
-        if ( 'a' <= ch && ch <= 'z' ) {
-            score += ALPHABET_SCORE[ ch - 'a' ];
-        }
+void writeMapToFile(map<int, string> wordValue) {
+	int count = 0;
+  map<int, string>::iterator it = wordValue.begin();
+  ofstream outFile ("wordValue.txt");
+  if (outFile.is_open()){
+    for (it=wordValue.begin(); it!=wordValue.end(); ++it) {
+    		count ++;
+    		outFile << it->second << '\n';
     }
-    return std::pair<int,string> ( score, str );
+    outFile.close();
+    cout<< count <<" words written to file";
+  }
+  else{
+    cout << "Unable to open file";
+  } 	
 }
 
-bool checkFileExistence(const string& fileName)
-{
-    ifstream f(fileName.c_str());
-    return f.is_open();
-}
-
-void openFile(string filename, ifstream& file)
-{
-    const bool file_exists = checkFileExistence(filename);
-    if (!file_exists) {
-        cout<<"\n unable to open file";
-    }
-    file.open(filename.c_str());
-}
-
-void insertIntoMap(int score, string word)
-{
-
-}
-
-void pushFileContentToMap(ifstream &file)
+void pushFileContentToMap(ifstream &file, map<int, string> &valueWord)
 {
     string word;
     while(getline(file,word))
     {
-        //compute score here for each word and put the word into the map
+        insertInMap(computeScore(word), valueWord);
     }
+    writeMapToFile(valueWord);
 }
 
-int main() {
+int main(int argc, char *argv[])
+{
 	map<int, string> valueWord;
-	insertInMap(computeScore("hello"), valueWord);
-	insertInMap(computeScore("jello"), valueWord);
-	insertInMap(computeScore("garvit"), valueWord);
-	insertInMap(computeScore("jain"), valueWord);
-	insertInMap(computeScore("hello"), valueWord);
-	displayMap(valueWord);
-	//writeMapToFile(valueWord);
-	return 0;
+    if (argc < 2)
+    {
+        cout << "enter the file name";
+        return 0;
+    }
+
+    ifstream file;
+
+    if (openFile(argv[1], file))
+    {
+    	cout<<"file opened";
+        pushFileContentToMap(file, valueWord);
+    }
+    else
+    {
+        cout << "file not opened";
+    }
 }
