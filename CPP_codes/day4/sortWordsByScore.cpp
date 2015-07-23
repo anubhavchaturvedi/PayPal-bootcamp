@@ -5,7 +5,7 @@ using namespace std;
 
 const int ALPHABET_SCORE[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, 21,22,23,24,25,26};
 
-std::pair<int,string> computeScore(string str) {
+int computeScore(string str) {
     int score = 0;
     //for ( char& ch : str ) {
     for ( int i = 0; i < str.length(); i++ ) {
@@ -14,22 +14,17 @@ std::pair<int,string> computeScore(string str) {
             score += ALPHABET_SCORE[ ch - 'a' ];
         }
     }
-    return std::pair<int,string> ( score, str );
+    return score;
 }
 
-bool checkFileExistence(const string& fileName)
+bool openFile(string filename, ifstream& file)
 {
-    ifstream f(fileName.c_str());
-    return f.is_open();
-}
-
-void openFile(string filename, ifstream& file)
-{
-    const bool file_exists = checkFileExistence(filename);
-    if (!file_exists) {
-        cout<<"\n unable to open file";
-    }
     file.open(filename.c_str());
+    bool fileExists = file.is_open();
+    if ( !fileExists ) {
+        cout << "unable to open file" ;
+    }
+    return fileExists();
 }
 
 void insertIntoMap(int score, string word)
