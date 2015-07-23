@@ -17,6 +17,35 @@ int computeScore(string str) {
     return score;
 }
 
+bool checkFileExistence(const string& fileName)
+{
+    ifstream f(fileName.c_str());
+    return f.is_open();
+}
+
+void openFile(string filename, ifstream& file)
+{
+    const bool file_exists = checkFileExistence(filename);
+    if (!file_exists) {
+        cout<<"\n unable to open file";
+    }
+    file.open(filename.c_str());
+}
+
+void insertIntoMap(int score, string word)
+{
+
+}
+
+void pushFileContentToMap(ifstream &file)
+{
+    string word;
+    while(getline(file,word))
+    {
+        //compute score here for each word and put the word into the map
+    }
+}
+
 int main() {
     std::pair<int,string> result = computeScore("abc");
     cout << result.first << result.second << endl;
