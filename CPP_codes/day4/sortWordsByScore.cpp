@@ -46,9 +46,25 @@ void pushFileContentToMap(ifstream &file)
     }
 }
 
-int main() {
-    std::pair<int,string> result = computeScore("abc");
-    cout << result.first << result.second << endl;
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
+        cout << "enter the file name";
+        return 0;
+    }
 
-    return 0;
+    string fileName = argv[1];
+    ifstream file;
+
+    openFile(fileName, file);
+    if (file.is_open())
+    {
+        pushFileContentToMap(file);
+    }
+    else
+    {
+        cout << "file not opened";
+    }
 }
+
