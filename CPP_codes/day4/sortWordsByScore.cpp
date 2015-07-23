@@ -17,19 +17,14 @@ int computeScore(string str) {
     return score;
 }
 
-bool checkFileExistence(const string& fileName)
+bool openFile(string filename, ifstream& file)
 {
-    ifstream f(fileName.c_str());
-    return f.is_open();
-}
-
-void openFile(string filename, ifstream& file)
-{
-    const bool file_exists = checkFileExistence(filename);
-    if (!file_exists) {
-        cout<<"\n unable to open file";
-    }
     file.open(filename.c_str());
+    bool fileExists = file.is_open();
+    if ( !fileExists ) {
+        cout << "unable to open file" ;
+    }
+    return fileExists();
 }
 
 void insertIntoMap(int score, string word)
