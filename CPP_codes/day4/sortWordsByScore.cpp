@@ -5,7 +5,7 @@ using namespace std;
 
 const int ALPHABET_SCORE[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, 21,22,23,24,25,26};
 
-std::pair<int,string> computeScore(string str) {
+int computeScore(string str) {
     int score = 0;
     //for ( char& ch : str ) {
     for ( int i = 0; i < str.length(); i++ ) {
@@ -14,7 +14,7 @@ std::pair<int,string> computeScore(string str) {
             score += ALPHABET_SCORE[ ch - 'a' ];
         }
     }
-    return std::pair<int,string> ( score, str );
+    return score;
 }
 
 int main() {
