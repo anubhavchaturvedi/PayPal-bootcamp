@@ -24,7 +24,7 @@ bool openFile(string filename, ifstream& file)
     if ( !fileExists ) {
         cout << "unable to open file" ;
     }
-    return fileExists();
+    return fileExists;
 }
 
 void insertIntoMap(int score, string word)
