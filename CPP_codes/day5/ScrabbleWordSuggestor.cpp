@@ -153,20 +153,21 @@ private:
     
     void addConstraintToRack(string constraint) {
     	for(int index = 0; index < constraint.length(); index++) {
-    		if(constraint.at(index) != '*') {
-    			this->rack.push_back(constraint.at(index));
-			}
+    		char letter = constraint.at(index);
+    		if(letter != '*') {
+    			this->rack.push_back(letter);
 		}
 	}
+    }
 	
-	void removeConstraintFromRack(string constraint) {
-		for(int index = 0; index < constraint.length(); index++) {
-			char letter = constraint.at(index);
+    void removeConstraintFromRack(string constraint) {
+	for(int index = 0; index < constraint.length(); index++) {
+		char letter = constraint.at(index);
     		if(letter != '*') {
     			this->rack.erase(this->rack.find(letter), 1);
-			}
 		}
 	}
+    }
 
 public:
     ScrabbleWordSuggestor(ifstream& sowpodsFile) {
