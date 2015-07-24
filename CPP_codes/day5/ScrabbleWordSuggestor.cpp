@@ -93,7 +93,7 @@ private:
         return sortedWord;
     }
 
-    void insertInMap(string key, string value)
+    void insertInSowpodsMap(string key, string value)
     {
         map<string, vector<string> >::iterator it = sowpods.begin();
 
@@ -116,7 +116,7 @@ private:
         string word;
         while(getline(file, word))
         {
-            insertInMap(getSortedString(word), word);
+            insertInSowpodsMap(getSortedString(word), word);
         }
     }
 
@@ -210,7 +210,7 @@ private:
     {
 		string regularExpression="";
     	bool flag=true;
-		
+
 		for (int i=0;i<constraint.length();i++) {
 			if (constraint[i]=='*') {
 				if(flag)
@@ -220,7 +220,7 @@ private:
 			}
 			else {
 				int j=i;;
-				regularExpression+=constraint[i];							
+				regularExpression+=constraint[i];
 				while (constraint[j]!='*'&&j<constraint.length()){
 					j++;
 				}
@@ -228,12 +228,12 @@ private:
 						if(constraint[i]!='*')
 						flag=!flag;
 				}
-			
-			}		
+
+			}
 		}
     	return regularExpression;
 	}
-	
+
 	bool matchesRegularExpression(string word,string regularExpression)
 	{
 	return regex_match (word, regex(regularExpression));
