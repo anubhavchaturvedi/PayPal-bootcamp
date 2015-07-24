@@ -196,7 +196,9 @@ class ScrabbleWordSuggestor
         for(int index = 0; index < constraint.length(); index++) {
             char letter = constraint.at(index);
             if(letter != '*') {
-    			this->RACK_STRING.erase(this->RACK_STRING.find(letter), 1);
+            	string::size_type index = this->RACK_STRING.find(letter);
+            	if(index != string::npos)
+    				this->RACK_STRING.erase(index, 1);
             }
         }
         rackRegExp = "";
