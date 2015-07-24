@@ -1,19 +1,8 @@
+#Scrabble Word Suggestor
 
-#BestWordFinder
+The code provides user with a set of words that can be used ( based on the rack of tiles available ) under the following situations:
 
------------------------------------------------------------------------------------------------------------------------------------------------
-Team 3
-Members: Rubeena K Shirin
-        Vidyashree BL
-        Padmaja
-Problem Statement:
-Given a position constraint find all the words with maximun score.The relative distance between the given character should be fixed.Excluding the constraint letters maximum of 7 letters or the size of the rack could be used to make the word.
-Example:input:
-rack:ratnata
-t**n
--Between c and p there should be two space and the word must contain c and p;
-Outout:ration
-nation
-..
+* The user has to make the first move ( both normal and empty tile cases are handled )
+* The user provides constraints on the words. ( eg. the word should have c in 3rd position )
 
----------------------------------------------------------------
+The sowpods dictionary is being used fo rthe purpose of word validation ( http://www.freescrabbledictionary.com/sowpods/download/sowpods.txt ).
