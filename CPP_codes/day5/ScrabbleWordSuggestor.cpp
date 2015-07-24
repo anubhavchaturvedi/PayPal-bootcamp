@@ -1,38 +1,14 @@
-#include <iostream>
-#include <map>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <vector>
-#include <cmath>
-#include <set>
-#include <regex>
+#include "ScrabbleWordSuggestor.h"
 
 using namespace std;
 
-const string EMPTY_TILE = "*";
-const int NO_SCORE_COMPENSATION = 0;
-const int NUMBER_OF_OUTPUT = 5;
 
 
-const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,4,8,4, 10};
-
-class ScrabbleWordSuggestor
-{
-
-    private:
-
-    map< string, vector<string> > sowpods;
-    map< int, vector<string> > scored_list;
-    set < pair<string,int> > POWERSET_RACKS;
-    string RACK_STRING;
-    string rackRegExp;
-
-    int getCharScore(char ch) {
+int ScrabbleWordSuggestor::getCharScore(char ch) {
         return ALPHABET_SCORE[ ch - 'a' ];
     }
 
-    void generatePowerSetOfRack( string rack, set<string>& power_set ) {
+    void ScrabbleWordSuggestor::generatePowerSetOfRack( string rack, set<string>& power_set ) {
         int set_size = rack.length();
         unsigned int pow_set_size = pow(2, set_size);
         int counter, j;
@@ -54,7 +30,7 @@ class ScrabbleWordSuggestor
         }
     }
 
-    void generateBlankReplacedPowerSet( set<string>& power_set, set< pair<string,int> >& power_set_score )
+    void ScrabbleWordSuggestor::generateBlankReplacedPowerSet( set<string>& power_set, set< pair<string,int> >& power_set_score )
     {
         for ( string power_set_element : power_set )
         {
@@ -62,12 +38,12 @@ class ScrabbleWordSuggestor
         }
     }
 
-    void replaceBlankTile( string rack, set< std::pair<string,int> >& set_of_racks )
+    void ScrabbleWordSuggestor::replaceBlankTile( string rack, set< std::pair<string,int> >& set_of_racks )
     {
         replaceBlankTile( rack, 0, set_of_racks );
     }
 
-    void replaceBlankTile( string rack, int scoreDeductionValue, set< std::pair<string,int> >& set_of_racks )
+    void ScrabbleWordSuggestor::replaceBlankTile( string rack, int scoreDeductionValue, set< std::pair<string,int> >& set_of_racks )
     {
         int rackBlankTileIndex = rack.find(EMPTY_TILE);
         if ( rackBlankTileIndex >= 0 )
@@ -85,14 +61,14 @@ class ScrabbleWordSuggestor
         }
     }
 
-    string getSortedString(string word)
+    string ScrabbleWordSuggestor::getSortedString(string word)
     {
         std::string sortedWord = word;
         std::sort(sortedWord.begin(), sortedWord.end());
         return sortedWord;
     }
 
-    void insertInSowpodsMap(string key, string value)
+    void ScrabbleWordSuggestor::insertInSowpodsMap(string key, string value)
     {
         map<string, vector<string> >::iterator it = sowpods.begin();
 
@@ -110,7 +86,7 @@ class ScrabbleWordSuggestor
         }
     }
 
-    void generateSowpodsMap(ifstream &file)
+    void ScrabbleWordSuggestor::generateSowpodsMap(ifstream &file)
     {
         string word;
         while(getline(file, word))
@@ -119,7 +95,7 @@ class ScrabbleWordSuggestor
         }
     }
 
-    vector<string> getAnagramListFromSowpodsMap(string key)
+    vector<string> ScrabbleWordSuggestor::getAnagramListFromSowpodsMap(string key)
     {
         vector<string> anagramList;
         if( sowpods.find(key) != sowpods.end() )
@@ -129,7 +105,7 @@ class ScrabbleWordSuggestor
         return anagramList;
     }
 
-    int computeScore(string str, int scoreCompensation)
+    int ScrabbleWordSuggestor::computeScore(string str, int scoreCompensation)
     {
         int score = 0;
         for ( int i = 0; i < str.length(); i++ )
@@ -143,7 +119,7 @@ class ScrabbleWordSuggestor
         return score - scoreCompensation;;
     }
 
-    void insertInScoredList(int score, string word)
+    void ScrabbleWordSuggestor::insertInScoredList(int score, string word)
     {
         map<int, vector<string> >::iterator it = scored_list.begin();
         if ( scored_list.find(score) != scored_list.end() )
@@ -159,7 +135,7 @@ class ScrabbleWordSuggestor
         }
     }
 
-    void generateScoredList()
+    void ScrabbleWordSuggestor::generateScoredList()
     {
         set<string> powerSet;
 
@@ -185,7 +161,7 @@ class ScrabbleWordSuggestor
         }
     }
 
-    void addConstraintToRack(string constraint) {
+    void ScrabbleWordSuggestor::addConstraintToRack(string constraint) {
     	for(int index = 0; index < constraint.length(); index++) {
     		char letter = constraint.at(index);
     		if(letter != '*') {
@@ -194,7 +170,7 @@ class ScrabbleWordSuggestor
         }
     }
 
-    void removeConstraintFromRack(string constraint) {
+    void ScrabbleWordSuggestor::removeConstraintFromRack(string constraint) {
         for(int index = 0; index < constraint.length(); index++) {
             char letter = constraint.at(index);
             if(letter != '*') {
@@ -206,7 +182,7 @@ class ScrabbleWordSuggestor
         rackRegExp = "";
     }
 
-	string generateRegExp(string constraint) {
+	string ScrabbleWordSuggestor::generateRegExp(string constraint) {
         string startExp = "";
         string endExp = "";
         string midExp = "";
@@ -242,7 +218,7 @@ class ScrabbleWordSuggestor
         return (startExp + midExp + endExp);
 	}
 
-	bool isMatchesRegularExpression(string word)
+	bool ScrabbleWordSuggestor::isMatchesRegularExpression(string word)
 	{
 	    try {
 
@@ -257,15 +233,17 @@ class ScrabbleWordSuggestor
 	}
 
 
-public:
-    ScrabbleWordSuggestor(ifstream& sowpodsFile)
+
+    ScrabbleWordSuggestor::ScrabbleWordSuggestor(string FILENAME)
     {
+        ifstream sowpodsFile;
+
+        sowpodsFile.open(FILENAME.c_str());
         generateSowpodsMap(sowpodsFile);
         this->rackRegExp = "";
     }
 
-    void suggestWords(string rack, string constraint = "")
-    {
+    void ScrabbleWordSuggestor::suggestWords(string rack, string constraint) {      // removed default argument ""
         this->RACK_STRING = rack;
         if (constraint != "") {
             addConstraint(constraint);
@@ -285,13 +263,13 @@ public:
         }
     }
 
-    void addConstraint(string constraint)
+    void ScrabbleWordSuggestor::addConstraint(string constraint)
     {
         addConstraintToRack(constraint);
         rackRegExp = generateRegExp(constraint);
 	}
-};
 
+/*
 int main(int argc, char* argv[]) {
    ifstream sowpodsFile;
    string FILENAME = "sowpods.txt";
@@ -307,3 +285,4 @@ int main(int argc, char* argv[]) {
     }
     return 0;
 }
+*/

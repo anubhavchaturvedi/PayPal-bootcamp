@@ -1,0 +1,103 @@
+# depslib dependency file v1.0
+1437762003 source:/home/anubhav/PayPal-bootcamp/CPP_codes/day5/ScrabbleWordSuggestor.cpp
+	"ScrabbleWordSuggestor.h"
+
+1437762014 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/ScrabbleWordSuggestor.h
+	<iostream>
+	<map>
+	<fstream>
+	<sstream>
+	<algorithm>
+	<vector>
+	<cmath>
+	<set>
+	<regex>
+
+1437762028 source:/home/anubhav/PayPal-bootcamp/CPP_codes/day5/TestScrabbleWordSuggestor.cpp
+	"UnitTest++.h"
+	"ScrabbleWordSuggestor.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/UnitTest++.h
+	"Config.h"
+	"Test.h"
+	"TestList.h"
+	"TestSuite.h"
+	"TestResults.h"
+	"TestMacros.h"
+	"CheckMacros.h"
+	"TestRunner.h"
+	"TimeConstraint.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/Config.h
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/Test.h
+	"TestDetails.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/TestDetails.h
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/TestList.h
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/TestSuite.h
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/TestResults.h
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/TestMacros.h
+	"Config.h"
+	"ExecuteTest.h"
+	"AssertException.h"
+	"TestDetails.h"
+	"MemoryOutStream.h"
+	"Posix/SignalTranslator.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/ExecuteTest.h
+	"TestDetails.h"
+	"MemoryOutStream.h"
+	"AssertException.h"
+	"CurrentTest.h"
+	"Posix/SignalTranslator.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/MemoryOutStream.h
+	"Config.h"
+	<sstream>
+	<cstddef>
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/AssertException.h
+	<exception>
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/CurrentTest.h
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/Posix/SignalTranslator.h
+	<setjmp.h>
+	<signal.h>
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/CheckMacros.h
+	"Checks.h"
+	"AssertException.h"
+	"MemoryOutStream.h"
+	"TestDetails.h"
+	"CurrentTest.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/Checks.h
+	"Config.h"
+	"TestResults.h"
+	"MemoryOutStream.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/TestRunner.h
+	"Test.h"
+	"TestList.h"
+	"CurrentTest.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/TimeConstraint.h
+	"TimeHelpers.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/TimeHelpers.h
+	"Config.h"
+	"Posix/TimeHelpers.h"
+	"Win32/TimeHelpers.h"
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/Posix/TimeHelpers.h
+	<sys/time.h>
+
+1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/Win32/TimeHelpers.h
+	"../Config.h"
+
