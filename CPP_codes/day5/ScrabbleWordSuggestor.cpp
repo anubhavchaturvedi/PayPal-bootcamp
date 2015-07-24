@@ -6,6 +6,7 @@
 #include <vector>
 #include <cmath>
 #include <set>
+#include <regex>
 
 using namespace std;
 
@@ -18,13 +19,15 @@ const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,
 
 class ScrabbleWordSuggestor {
 
-private:
+    private:
+
     map< string, vector<string> > sowpods;
     map< int, vector<string> > scored_list;
     set < pair<string,int> > POWERSET_RACKS;
     string RACK_STRING;
-    string regExpression;
-private:
+    string rackRegExp;
+    string posConstraint;
+
     int getCharScore(char ch) {
         return ALPHABET_SCORE[ ch - 'a' ];
     }
@@ -144,52 +147,82 @@ private:
         for ( pair<string,int> p : POWERSET_RACKS ) {
             int score = computeScore( p.first, NO_SCORE_COMPENSATION );
             for ( string anagram : getAnagramListFromSowpodsMap( p.first ) ) {
-                int scoreCompensation = p.second;
-                insertInScoredList( score - scoreCompensation, anagram);
+                if (this->rackRegExp.length() > 0) {
+                    if (isMatchesRegularExpression(anagram)) {
+                            int scoreCompensation = p.second;
+                            insertInScoredList( score - scoreCompensation, anagram);
+                    }
+                }
+            }
+        }
+        removeConstraintFromRack();
+    }
+
+    void addConstraintToRack() {
+    	for(int index = 0; index < posConstraint.length(); index++) {
+    		char letter = posConstraint.at(index);
+    		if(letter != '*') {
+    			this->RACK_STRING.push_back(letter);
             }
         }
     }
 
-    void addConstraintToRack(string constraint) {
-    	for(int index = 0; index < constraint.length(); index++) {
-    		char letter = constraint.at(index);
-    		if(letter != '*') {
-    			this->RACK_STRING.push_back(letter);
-		}
-	}
-    }
-
-    void removeConstraintFromRack(string constraint) {
-	for(int index = 0; index < constraint.length(); index++) {
-		char letter = constraint.at(index);
-    		if(letter != '*') {
+    void removeConstraintFromRack() {
+        for(int index = 0; index < posConstraint.length(); index++) {
+            char letter = posConstraint.at(index);
+            if(letter != '*') {
     			this->RACK_STRING.erase(this->RACK_STRING.find(letter), 1);
-		}
-	}
+            }
+        }
+        posConstraint = "";
+        rackRegExp = "";
     }
 
-    string getRegularExpression(string constraint)
-    {
-    	string regularExpression="";
-    	for(int i=0;i<constraint.length();i++)
-    	{
-    	if(constraint[i]=='*')
-    		regularExpression+="[a-z]{0,1}";
-    	else
-    		regularExpression+=constraint[i];
-		}
-    	return regularExpression;
+	string generateRegExp() {
+        string regularExpression="";
+        bool flag=true;
+
+        try
+        {
+        for (int i=0;i<posConstraint.length();i++) {
+            if (posConstraint[i]=='*') {
+                if(flag)
+                    regularExpression+="[a-z]{0,1}";
+                else
+                    regularExpression+="[a-z]";
+            }
+            else {
+                int j=i;;
+                regularExpression+=posConstraint[i];
+                while (posConstraint[j]!='*'&&j<posConstraint.length()){
+                    j++;
+                }
+                if (j<posConstraint.length()) {
+                    if(posConstraint[i]!='*')
+                        flag=!flag;
+                }
+            }
+        }
+        }
+        catch (const std::regex_error& e) {
+            std::cout << "regex_error caught: " << e.what() << '\n';
+            if (e.code() == std::regex_constants::error_brack) {
+                std::cout << "The code was error_back\n";
+            }
+        }
+        return regularExpression;
 	}
-	
-	bool matchesRegularExpression(string word,string regularExpression)
+
+	bool isMatchesRegularExpression(string word)
 	{
-	return regex_match (word, regex(regularExpression));
+        return regex_match (word, regex(rackRegExp));
 	}
 
 
 public:
     ScrabbleWordSuggestor(ifstream& sowpodsFile) {
         generateSowpodsMap(sowpodsFile);
+        this->rackRegExp = "";
     }
 
     void suggestWords(string rack){
@@ -205,14 +238,14 @@ public:
             cout << endl;
         }
     }
-};
 
-bool constraintPassed(string word)
-{
-  if (regex_match (word, regex(regExpression) ))
-    return true;
-return false;
-}
+    void addConstraint(string constraint)
+    {
+        posConstraint = constraint;
+        addConstraintToRack();
+        rackRegExp = generateRegExp();
+	}
+};
 
 int main(int argc, char* argv[]) {
    ifstream sowpodsFile;
@@ -222,10 +255,12 @@ int main(int argc, char* argv[]) {
    {
        sowpodsFile.open(FILENAME.c_str());
        ScrabbleWordSuggestor scrabble(sowpodsFile);
-       scrabble.suggestWords("apple*d");
-       cout << "======================================================================================================================" << endl;
-       cout << "======================================================================================================================" << endl;
-       scrabble.suggestWords("abcdef");
+       //scrabble.suggestWords("apple*d");
+       //cout << "======================================================================================================================" << endl;
+       //cout << "======================================================================================================================" << endl;
+       scrabble.suggestWords("or");
+       scrabble.addConstraint("*u*");
+       scrabble.suggestWords("or");
    }
     catch (std::ifstream::failure e) {
         std::cerr << "Exception opening/reading/closing file\n";
