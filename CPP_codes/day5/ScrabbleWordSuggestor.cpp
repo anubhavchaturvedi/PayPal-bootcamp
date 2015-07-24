@@ -101,12 +101,10 @@ private:
     }
 
     vector<string> findInSowpodsMap(string key) {
-        vector<string> x;
         if( sowpods.find(key) != sowpods.end() ) {
             return sowpods.find( key )->second;
         }
-        vector<string> a;
-        return a;
+        return vector<string>();
     }
 
     int computeScore(string str, int scoreCompensation) {
