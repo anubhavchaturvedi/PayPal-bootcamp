@@ -101,3 +101,17 @@
 1437777472 /home/anubhav/PayPal-bootcamp/CPP_codes/day5/Dependencies/UnitTest++/Win32/TimeHelpers.h
 	"../Config.h"
 
+1437764466 source:c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\scrabblewordsuggestor.cpp
+	"ScrabbleWordSuggestor.h"
+
+1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\scrabblewordsuggestor.h
+	<iostream>
+	<map>
+	<fstream>
+	<sstream>
+	<algorithm>
+	<vector>
+	<cmath>
+	<set>
+	<regex>
+
