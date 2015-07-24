@@ -1,6 +1,6 @@
 #include <iostream>
 #include <map>
-#include <string>       // remove this
+#include <string>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -42,8 +42,10 @@ public:
 
         for(counter = 1; counter < pow_set_size; counter++) {
             subset = "";
-            multiplicationFactor = pow (2, j);
+
+
             for(j = 0; j < set_size; j++) {
+                multiplicationFactor = pow (2, j);
                 if(counter & (1 * multiplicationFactor))
                     subset += rack[j];
             }
@@ -169,7 +171,7 @@ public:
 bool openFile(string filename, ifstream& file) {
     file.open(filename.c_str());
     bool fileExists = file.is_open();
-    if ( !fileExists ) {                    // use exception handler
+    if ( !fileExists ) {
         cout << "unable to open file" ;
     }
     return fileExists;
@@ -179,7 +181,7 @@ int main(int argc, char* argv[]) {
     ifstream file;
     string FILENAME = "sowpods.txt";
     if ( openFile(FILENAME,file)) {
-        ScrabbleWordSuggestor scrabble("apple*d", file);       // a method to setup the constructor
+        ScrabbleWordSuggestor scrabble("apple*d", file);
         scrabble.suggestWords();
         cout << "======================================================================================================================" << endl;
         cout << "======================================================================================================================" << endl;
