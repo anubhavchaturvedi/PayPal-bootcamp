@@ -126,8 +126,7 @@ public:
         if ( scored_list.find(score) != scored_list.end() ) {
             it = scored_list.find( score );
             (it->second).push_back(word);
-        }
-        else {
+        } else {
             vector<string> newVector;
             newVector.push_back(word);
             scored_list.insert ( std::pair<int, vector<string> >(score, newVector) );
@@ -151,6 +150,17 @@ public:
             }
         }
     }
+
+    void suggestWords(){
+        for ( map<int, vector<string> >::reverse_iterator r = scored_list.rbegin(); r != scored_list.rend(); ++r ) {
+
+            cout << r->first << "\t\t" ;
+            for ( string s : r->second ) {
+                cout << s << " " ;
+            }
+            cout << endl;
+        }
+    }
 };
 
 bool openFile(string filename, ifstream& file) {
@@ -167,16 +177,11 @@ int main(int argc, char* argv[]) {
     string FILENAME = "sowpods.txt";
     if ( openFile(FILENAME,file)) {
         ScrabbleWordHelper scrabble("apple*d", file);
-        for ( map<int, vector<string> >::reverse_iterator r = scrabble.scored_list.rbegin(); r!=scrabble.scored_list.rend(); ++r ) {
-
-            cout << r->first << "\t\t" ;
-            for ( string s : r->second ) {
-                cout << s << " " ;
-            }
-            cout << endl;
-        }
-
-        cout << "finish";
+        scrabble.suggestWords();
+        cout << "======================================================================================================================" << endl;
+        cout << "======================================================================================================================" << endl;
+        scrabble.generateScoredList("abcdef");
+        scrabble.suggestWords();
     }
     return 0;
 }
