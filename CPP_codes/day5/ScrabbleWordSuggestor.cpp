@@ -155,7 +155,7 @@ private:
     	for(int index = 0; index < constraint.length(); index++) {
     		char letter = constraint.at(index);
     		if(letter != '*') {
-    			this->rack.push_back(letter);
+    			this->RACK_STRING.push_back(letter);
 		}
 	}
     }
@@ -164,7 +164,7 @@ private:
 	for(int index = 0; index < constraint.length(); index++) {
 		char letter = constraint.at(index);
     		if(letter != '*') {
-    			this->rack.erase(this->rack.find(letter), 1);
+    			this->RACK_STRING.erase(this->RACK_STRING.find(letter), 1);
 		}
 	}
     }
