@@ -1,6 +1,6 @@
 #include <iostream>
 #include <map>
-#include <string>
+#include <string>       // remove this
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -169,7 +169,7 @@ public:
 bool openFile(string filename, ifstream& file) {
     file.open(filename.c_str());
     bool fileExists = file.is_open();
-    if ( !fileExists ) {
+    if ( !fileExists ) {                    // use exception handler
         cout << "unable to open file" ;
     }
     return fileExists;
@@ -179,7 +179,7 @@ int main(int argc, char* argv[]) {
     ifstream file;
     string FILENAME = "sowpods.txt";
     if ( openFile(FILENAME,file)) {
-        ScrabbleWordHelper scrabble("apple*d", file);
+        ScrabbleWordSuggestor scrabble("apple*d", file);       // a method to setup the constructor
         scrabble.suggestWords();
         cout << "======================================================================================================================" << endl;
         cout << "======================================================================================================================" << endl;
