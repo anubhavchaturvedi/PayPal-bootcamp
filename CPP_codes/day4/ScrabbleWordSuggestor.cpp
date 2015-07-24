@@ -177,16 +177,23 @@ bool openFile(string filename, ifstream& file) {
     return fileExists;
 }
 
+
 int main(int argc, char* argv[]) {
-    ifstream file;
-    string FILENAME = "sowpods.txt";
-    if ( openFile(FILENAME,file)) {
-        ScrabbleWordSuggestor scrabble("apple*d", file);
-        scrabble.suggestWords();
-        cout << "======================================================================================================================" << endl;
-        cout << "======================================================================================================================" << endl;
-        scrabble.generateScoredList("abcdef");
-        scrabble.suggestWords();
-    }
-    return 0;
+   ifstream file;
+   string FILENAME = "sowpod.txt";
+
+   try
+   {
+       file.open(FILENAME.c_str());
+       ScrabbleWordSuggestor scrabble("apple*d", file);
+       scrabble.suggestWords();
+       //cout << "======================================================================================================================" << endl;
+       //cout << "======================================================================================================================" << endl;
+       scrabble.generateScoredList("abcdef");
+       scrabble.suggestWords();
+   }
+    catch (std::ifstream::failure e) {
+        std::cerr << "Exception opening/reading/closing file\n";
+ 	}
+   return 0;
 }
