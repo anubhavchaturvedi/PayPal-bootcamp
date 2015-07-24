@@ -168,6 +168,25 @@ private:
 	}
     }
 
+    string getRegularExpression(string constraint)
+    {
+    	string regularExpression="";
+    	for(int i=0;i<constraint.length();i++)
+    	{
+    	if(constraint[i]=='*')
+    		regularExpression+="[a-z]{0,1}";
+    	else
+    		regularExpression+=constraint[i];
+		}
+    	return regularExpression;
+	}
+	
+	bool matchesRegularExpression(string word,string regularExpression)
+	{
+	return regex_match (word, regex(regularExpression));
+	}
+
+
 public:
     ScrabbleWordSuggestor(ifstream& sowpodsFile) {
         generateSowpodsMap(sowpodsFile);
