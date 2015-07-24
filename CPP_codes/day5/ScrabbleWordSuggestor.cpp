@@ -94,7 +94,7 @@ class ScrabbleWordSuggestor
         return sortedWord;
     }
 
-    void insertInMap(string key, string value)
+    void insertInSowpodsMap(string key, string value)
     {
         map<string, vector<string> >::iterator it = sowpods.begin();
 
@@ -117,7 +117,7 @@ class ScrabbleWordSuggestor
         string word;
         while(getline(file, word))
         {
-            insertInMap(getSortedString(word), word);
+            insertInSowpodsMap(getSortedString(word), word);
         }
     }
 
