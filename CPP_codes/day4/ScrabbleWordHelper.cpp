@@ -11,10 +11,11 @@
 using namespace std;
 
 const string EMPTY_TILE = "*";
+const int MAX_RACK_LENGTH = 7;
 
 const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,4,8,4, 10};
 
-class ScrabbleWordHelper {
+class ScrabbleWordSuggestor {
 
 public:
     map< string, vector<string> > sowpods;
@@ -23,7 +24,7 @@ public:
 public:
     string RACK_STRING;
 
-    ScrabbleWordHelper(string rack, ifstream& sowpodsFile) {
+    ScrabbleWordSuggestor(string rack, ifstream& sowpodsFile) {
         generateSowpodsMap(sowpodsFile);
         generateScoredList(rack);
     }
@@ -37,11 +38,13 @@ public:
         unsigned int pow_set_size = pow(2, set_size);
         int counter, j;
         string subset;
+        int multiplicationFactor;
 
         for(counter = 1; counter < pow_set_size; counter++) {
             subset = "";
+            multiplicationFactor = pow (2, j);
             for(j = 0; j < set_size; j++) {
-                if(counter & (1<<j))
+                if(counter & (1 * multiplicationFactor))
                     subset += rack[j];
             }
             power_set.insert(subset);
@@ -95,7 +98,7 @@ public:
     void generateSowpodsMap(ifstream &file) {
         string word;
         while(getline(file, word)) {
-            if ( word.length() <= 7 ) {
+            if ( word.length() <=  MAX_RACK_LENGTH ) {
                 insertInMap(getSortedString(word), word);
             }
         }
