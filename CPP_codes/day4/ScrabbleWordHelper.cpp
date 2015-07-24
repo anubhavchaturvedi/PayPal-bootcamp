@@ -18,18 +18,13 @@ const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,
 
 class ScrabbleWordSuggestor {
 
-public:
+private:
     map< string, vector<string> > sowpods;
     map< int, vector<string> > scored_list;
     set < pair<string,int> > POWERSET_RACKS;
-public:
     string RACK_STRING;
 
-    ScrabbleWordSuggestor(string rack, ifstream& sowpodsFile) {
-        generateSowpodsMap(sowpodsFile);
-        generateScoredList(rack);
-    }
-
+private:
     int getCharScore(char ch) {
         return ALPHABET_SCORE[ ch - 'a' ];
     }
@@ -158,7 +153,13 @@ public:
         }
     }
 
-    void suggestWords(){
+public:
+    ScrabbleWordSuggestor(ifstream& sowpodsFile) {
+        generateSowpodsMap(sowpodsFile);
+    }
+
+    void suggestWords(string rack){
+        generateScoredList(rack);
         for ( map<int, vector<string> >::reverse_iterator r = scored_list.rbegin(); r != scored_list.rend(); ++r ) {
 
             cout << r->first << "\t\t" ;
@@ -183,12 +184,10 @@ int main(int argc, char* argv[]) {
     ifstream file;
     string FILENAME = "sowpods.txt";
     if ( openFile(FILENAME,file)) {
-        ScrabbleWordSuggestor scrabbleSuggestor("apple*d", file);
-        scrabbleSuggestor.suggestWords();
+        ScrabbleWordSuggestor scrabbleSuggestor(file);
+        scrabbleSuggestor.suggestWords("apple*d");
         cout << "======================================================================================================================" << endl;
-        cout << "======================================================================================================================" << endl;
-        scrabbleSuggestor.generateScoredList("a**");
-        scrabbleSuggestor.suggestWords();
+        scrabbleSuggestor.suggestWords("a**");
     }
     return 0;
 }
