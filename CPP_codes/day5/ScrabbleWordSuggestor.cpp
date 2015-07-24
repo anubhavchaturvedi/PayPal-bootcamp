@@ -6,6 +6,7 @@
 #include <vector>
 #include <cmath>
 #include <set>
+#include<regex>
 
 using namespace std;
 
@@ -170,13 +171,28 @@ private:
 
     string getRegularExpression(string constraint)
     {
-    	string regularExpression="";
-    	for(int i=0;i<constraint.length();i++)
-    	{
-    	if(constraint[i]=='*')
-    		regularExpression+="[a-z]{0,1}";
-    	else
-    		regularExpression+=constraint[i];
+		string regularExpression="";
+    	bool flag=true;
+		
+		for (int i=0;i<constraint.length();i++) {
+			if (constraint[i]=='*') {
+				if(flag)
+				regularExpression+="[a-z]{0,1}";
+				else
+				regularExpression+="[a-z]";
+			}
+			else {
+				int j=i;;
+				regularExpression+=constraint[i];							
+				while (constraint[j]!='*'&&j<constraint.length()){
+					j++;
+				}
+				if (j<constraint.length()) {
+						if(constraint[i]!='*')
+						flag=!flag;
+				}
+			
+			}		
 		}
     	return regularExpression;
 	}
@@ -207,12 +223,6 @@ public:
     }
 };
 
-bool constraintPassed(string word)
-{
-  if (regex_match (word, regex(regExpression) ))
-    return true;
-return false;
-}
 
 int main(int argc, char* argv[]) {
    ifstream sowpodsFile;
