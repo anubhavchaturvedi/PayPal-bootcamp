@@ -1,6 +1,5 @@
 #include <iostream>
 #include <map>
-#include <string>       // remove this
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -11,7 +10,8 @@
 using namespace std;
 
 const string EMPTY_TILE = "*";
-
+const int NO_SCORE_COMPENSATION = 0;
+const int MAX_RACK_LENGTH = 7;
 const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,4,8,4, 10};
 
 class ScrabbleWordSuggestor {
@@ -95,7 +95,7 @@ public:
     void generateSowpodsMap(ifstream &file) {
         string word;
         while(getline(file, word)) {
-            if ( word.length() <= 7 ) {
+            if ( word.length() <= MAX_RACK_LENGTH ) {
                 insertInMap(getSortedString(word), word);
             }
         }
@@ -144,9 +144,10 @@ public:
         generateBlankReplacedPowerSet(powerSet, POWERSET_RACKS);
 
         for ( pair<string,int> p : POWERSET_RACKS ) {
-            for ( string anagram : findInSowpodsMap(p.first)) {
-                int score = computeScore(anagram, p.second);
-                insertInScoredList(score, anagram);
+            int score = computeScore( p.first, NO_SCORE_COMPENSATION );
+            for ( string anagram : findInSowpodsMap( p.first ) ) {
+                int scoreCompensation = p.second;
+                insertInScoredList( score - scoreCompensation, anagram);
             }
         }
     }
@@ -176,12 +177,12 @@ int main(int argc, char* argv[]) {
     ifstream file;
     string FILENAME = "sowpods.txt";
     if ( openFile(FILENAME,file)) {
-        ScrabbleWordSuggestor scrabble("apple*d", file);       // a method to setup the constructor
-        scrabble.suggestWords();
+        ScrabbleWordSuggestor scrabbleSuggestor("apple*d", file);
+        scrabbleSuggestor.suggestWords();
         cout << "======================================================================================================================" << endl;
         cout << "======================================================================================================================" << endl;
-        scrabble.generateScoredList("abcdef");
-        scrabble.suggestWords();
+        scrabbleSuggestor.generateScoredList("a**");
+        scrabbleSuggestor.suggestWords();
     }
     return 0;
 }
