@@ -168,27 +168,17 @@ public:
     }
 };
 
-bool openFile(string filename, ifstream& file) {
-    file.open(filename.c_str());
-    bool fileExists = file.is_open();
-    if ( !fileExists ) {
-        cout << "unable to open file" ;
-    }
-    return fileExists;
-}
-
-
 int main(int argc, char* argv[]) {
    ifstream file;
-   string FILENAME = "sowpod.txt";
+   string FILENAME = "sowpods.txt";
 
    try
    {
        file.open(FILENAME.c_str());
        ScrabbleWordSuggestor scrabble("apple*d", file);
        scrabble.suggestWords();
-       //cout << "======================================================================================================================" << endl;
-       //cout << "======================================================================================================================" << endl;
+       cout << "======================================================================================================================" << endl;
+       cout << "======================================================================================================================" << endl;
        scrabble.generateScoredList("abcdef");
        scrabble.suggestWords();
    }
