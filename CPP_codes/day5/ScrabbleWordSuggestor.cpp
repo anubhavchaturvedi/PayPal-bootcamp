@@ -173,11 +173,13 @@ class ScrabbleWordSuggestor
         {
             int score = computeScore( p.first, NO_SCORE_COMPENSATION );
             for ( string anagram : getAnagramListFromSowpodsMap( p.first ) ) {
+                int scoreCompensation = p.second;
                 if (this->rackRegExp.length() > 0) {
                     if (isMatchesRegularExpression(anagram)) {
-                            int scoreCompensation = p.second;
-                            insertInScoredList( score - scoreCompensation, anagram);
+                        insertInScoredList( score - scoreCompensation, anagram);
                     }
+                } else {
+                    insertInScoredList( score - scoreCompensation, anagram);
                 }
             }
         }
@@ -298,7 +300,7 @@ int main(int argc, char* argv[]) {
    {
        sowpodsFile.open(FILENAME.c_str());
        ScrabbleWordSuggestor scrabble(sowpodsFile);
-       scrabble.suggestWords("or", "*u*n");
+       scrabble.suggestWords("babul", "*all");
    }
     catch (std::ifstream::failure e) {
         std::cerr << "Exception opening/reading/closing file\n";
