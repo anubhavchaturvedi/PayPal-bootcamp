@@ -12,7 +12,7 @@ using namespace std;
 
 const string EMPTY_TILE = "*";
 
-const int ALPHABET_SCORE[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20, 21,22,23,24,25,26};
+const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,4,8,4, 10};
 
 class ScrabbleWordHelper {
 
@@ -24,11 +24,8 @@ public:
     string RACK_STRING;
 
     ScrabbleWordHelper(string rack, ifstream& sowpodsFile) {
-        this->RACK_STRING = rack;
-        set<string> powerSet;
-        generatePowerSetOfRack(rack, powerSet);
-        generateBlankReplacedPowerSet(powerSet, POWERSET_RACKS);
         generateSowpodsMap(sowpodsFile);
+        generateScoredList(rack);
     }
 
     int getCharScore(char ch) {
@@ -70,42 +67,89 @@ public:
                 replaceBlankTile( rack, newScoreDectionValue, set_of_racks);
             }
         } else {
-            set_of_racks.insert( pair<string,int> (rack, scoreDeductionValue) );
+            set_of_racks.insert( pair<string,int> ( getSortedString(rack), scoreDeductionValue) );
         }
     }
 
-    std::pair<string, string> getSortedString(string word) {
+    string getSortedString(string word) {
         std::string sortedWord = word;
         std::sort(sortedWord.begin(), sortedWord.end());
-        return std::pair<string, string> (sortedWord, word);
+        return sortedWord;
     }
 
-    void insertInMap(std::pair<string, string> entry) {
+    void insertInMap(string key, string value) {
         map<string, vector<string> >::iterator it = sowpods.begin();
 
-        if( sowpods.count(entry.first) ) {
-            it = sowpods.find( entry.first );
-            (it->second).push_back(entry.second);
+        if( sowpods.count(key) ) {
+            it = sowpods.find( key );
+            (it->second).push_back(value);
         }
 
         else {
             vector<string> newVector;
-            newVector.push_back(entry.second);
-            sowpods.insert ( std::pair<string, vector<string> >(entry.first, newVector) );
+            newVector.push_back(value);
+            sowpods.insert ( std::pair<string, vector<string> >( key, newVector) );
         }
     }
 
     void generateSowpodsMap(ifstream &file) {
         string word;
         while(getline(file, word)) {
-            insertInMap(getSortedString(word));
+            if ( word.length() <= 7 ) {
+                insertInMap(getSortedString(word), word);
+            }
         }
     }
 
     vector<string> findInSowpodsMap(string key) {
         vector<string> x;
-        //if(sowpods.find(key))
-        //return sowpods.find( key ) ==  ? return sowpods.find( key ) -> second : x;
+        if( sowpods.find(key) != sowpods.end() ) {
+            return sowpods.find( key )->second;
+        }
+        vector<string> a;
+        return a;
+    }
+
+    int computeScore(string str, int scoreCompensation) {
+        int score = 0;
+        for ( int i = 0; i < str.length(); i++ ) {
+            char ch = str[i];
+            if ( 'a' <= ch && ch <= 'z' ) {
+                score += ALPHABET_SCORE[ ch - 'a' ];
+            }
+        }
+        return score - scoreCompensation;;
+    }
+
+    void insertInScoredList(int score, string word) {
+        map<int, vector<string> >::iterator it = scored_list.begin();
+        if ( scored_list.find(score) != scored_list.end() ) {
+            it = scored_list.find( score );
+            (it->second).push_back(word);
+        }
+        else {
+            vector<string> newVector;
+            newVector.push_back(word);
+            scored_list.insert ( std::pair<int, vector<string> >(score, newVector) );
+        }
+    }
+
+    void generateScoredList(string rack) {
+        this->RACK_STRING = rack;
+        set<string> powerSet;
+
+        POWERSET_RACKS.clear();
+        scored_list.clear();
+
+        generatePowerSetOfRack(rack, powerSet);
+        generateBlankReplacedPowerSet(powerSet, POWERSET_RACKS);
+
+        for ( pair<string,int> p : POWERSET_RACKS ) {
+            for ( string anagram : findInSowpodsMap(p.first)) {
+                int score = computeScore(anagram, p.second);
+                insertInScoredList(score, anagram);
+            }
+        }
     }
 };
 
@@ -122,9 +166,14 @@ int main(int argc, char* argv[]) {
     ifstream file;
     string FILENAME = "sowpods.txt";
     if ( openFile(FILENAME,file)) {
-        ScrabbleWordHelper scrabble("ab*", file);
-        for ( pair<string,int> r : scrabble.POWERSET_RACKS ) {
-            cout << "( " << r.first << " , " << r.second << " )" << endl;
+        ScrabbleWordHelper scrabble("apple*d", file);
+        for ( map<int, vector<string> >::reverse_iterator r = scrabble.scored_list.rbegin(); r!=scrabble.scored_list.rend(); ++r ) {
+
+            cout << r->first << "\t\t" ;
+            for ( string s : r->second ) {
+                cout << s << " " ;
+            }
+            cout << endl;
         }
 
         cout << "finish";
