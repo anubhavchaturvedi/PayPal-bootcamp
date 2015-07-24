@@ -1,6 +1,6 @@
 #include <iostream>
 #include <map>
-#include <string>
+#include <string>       // remove this
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -14,7 +14,7 @@ const string EMPTY_TILE = "*";
 
 const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,4,8,4, 10};
 
-class ScrabbleWordHelper {
+class ScrabbleWordSuggestor {
 
 public:
     map< string, vector<string> > sowpods;
@@ -23,7 +23,7 @@ public:
 public:
     string RACK_STRING;
 
-    ScrabbleWordHelper(string rack, ifstream& sowpodsFile) {
+    ScrabbleWordSuggestor(string rack, ifstream& sowpodsFile) {
         generateSowpodsMap(sowpodsFile);
         generateScoredList(rack);
     }
@@ -166,7 +166,7 @@ public:
 bool openFile(string filename, ifstream& file) {
     file.open(filename.c_str());
     bool fileExists = file.is_open();
-    if ( !fileExists ) {
+    if ( !fileExists ) {                    // use exception handler
         cout << "unable to open file" ;
     }
     return fileExists;
@@ -176,7 +176,7 @@ int main(int argc, char* argv[]) {
     ifstream file;
     string FILENAME = "sowpods.txt";
     if ( openFile(FILENAME,file)) {
-        ScrabbleWordHelper scrabble("apple*d", file);
+        ScrabbleWordSuggestor scrabble("apple*d", file);       // a method to setup the constructor
         scrabble.suggestWords();
         cout << "======================================================================================================================" << endl;
         cout << "======================================================================================================================" << endl;
