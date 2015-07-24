@@ -25,7 +25,7 @@ private:
     map< int, vector<string> > scored_list;
     set < pair<string,int> > POWERSET_RACKS;
     string RACK_STRING;
-    string regExpression;
+
 private:
     int getCharScore(char ch)
     {
@@ -222,13 +222,6 @@ private:
     bool matchesRegularExpression(string word,string regularExpression)
     {
         return regex_match (word, regex(regularExpression));
-    }
-
-    bool constraintPassed(string word)
-    {
-        if (regex_match (word, regex(regExpression) ))
-            return true;
-        return false;
     }
 
 
