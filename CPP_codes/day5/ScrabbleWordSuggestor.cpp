@@ -177,7 +177,9 @@ class ScrabbleWordSuggestor
             int score = computeScore( p.first, NO_SCORE_COMPENSATION );
             for ( string anagram : getAnagramListFromSowpodsMap( p.first ) ) {
                 if (this->rackRegExp.length() > 0) {
+                    std::cout<< "I AM IN GENERATE" << endl;
                     if (isMatchesRegularExpression(anagram)) {
+
                             int scoreCompensation = p.second;
                             insertInScoredList( score - scoreCompensation, anagram);
                     }
@@ -208,30 +210,30 @@ class ScrabbleWordSuggestor
     }
 
 	string generateRegExp() {
-        string regularExpression="";
-        bool flag=true;
+        string startExp = "";
+        string endExp = "";
+        string midExp = "";
 
-        try
-        {
-        for (int i=0;i<posConstraint.length();i++) {
-            if (posConstraint[i]=='*') {
-                if(flag)
-                    regularExpression+="[a-z]{0,1}";
-                else
-                    regularExpression+="[a-z]";
+        int i = 0;
+        try {
+            while (posConstraint[i] == '*') {
+                startExp += "[a-z]{0,1}";
+                i++;
             }
-            else {
-                int j=i;;
-                regularExpression+=posConstraint[i];
-                while (posConstraint[j]!='*'&&j<posConstraint.length()){
-                    j++;
-                }
-                if (j<posConstraint.length()) {
-                    if(posConstraint[i]!='*')
-                        flag=!flag;
+            int startInd = i;
+            i = posConstraint.length() - 1;
+            while (posConstraint[i] == '*') {
+                endExp += "[a-z]{0,1}";
+                i--;
+            }
+            int endInd = i;
+            for (int k = startInd; k <= endInd; k++ ) {
+                if (posConstraint[k] == '*') {
+                    midExp += "[a-z]";
+                } else {
+                    midExp += posConstraint[k];
                 }
             }
-        }
         }
         catch (const std::regex_error& e) {
             std::cout << "regex_error caught: " << e.what() << '\n';
@@ -239,12 +241,24 @@ class ScrabbleWordSuggestor
                 std::cout << "The code was error_back\n";
             }
         }
-        return regularExpression;
+
+        return (startExp + midExp + endExp);
 	}
 
 	bool isMatchesRegularExpression(string word)
 	{
-        return regex_match (word, regex(rackRegExp));
+	    std::cout<< "THE RACK REG EXP IS " << rackRegExp << endl << "AND THE WORD COMAPRED WITH IS " << word << endl;
+	    string t = "";
+	    try {
+	        t = std::regex_match (word, std::regex(".."));
+	    }
+	    catch (const std::regex_error& e) {
+            std::cout << "regex_error caught: " << e.what() << '\n';
+            if (e.code() == std::regex_constants::error_brack) {
+                std::cout << "The code was error_back\n";
+            }
+        }
+        return false;
 	}
 
 
