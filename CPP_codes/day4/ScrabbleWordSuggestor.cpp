@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <string>       // remove this
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -10,8 +11,6 @@
 using namespace std;
 
 const string EMPTY_TILE = "*";
-
-const int NO_SCORE_COMPENSATION = 0;
 const int MAX_RACK_LENGTH = 7;
 
 const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,4,8,4, 10};
@@ -43,10 +42,8 @@ public:
 
         for(counter = 1; counter < pow_set_size; counter++) {
             subset = "";
-
-
+            multiplicationFactor = pow (2, j);
             for(j = 0; j < set_size; j++) {
-                multiplicationFactor = pow (2, j);
                 if(counter & (1 * multiplicationFactor))
                     subset += rack[j];
             }
@@ -101,7 +98,7 @@ public:
     void generateSowpodsMap(ifstream &file) {
         string word;
         while(getline(file, word)) {
-            if ( word.length() <= MAX_RACK_LENGTH ) {
+            if ( word.length() <=  MAX_RACK_LENGTH ) {
                 insertInMap(getSortedString(word), word);
             }
         }
@@ -150,10 +147,9 @@ public:
         generateBlankReplacedPowerSet(powerSet, POWERSET_RACKS);
 
         for ( pair<string,int> p : POWERSET_RACKS ) {
-            int score = computeScore( p.first, NO_SCORE_COMPENSATION );
-            for ( string anagram : findInSowpodsMap( p.first ) ) {
-                int scoreCompensation = p.second;
-                insertInScoredList( score - scoreCompensation, anagram);
+            for ( string anagram : findInSowpodsMap(p.first)) {
+                int score = computeScore(anagram, p.second);
+                insertInScoredList(score, anagram);
             }
         }
     }
@@ -173,7 +169,7 @@ public:
 bool openFile(string filename, ifstream& file) {
     file.open(filename.c_str());
     bool fileExists = file.is_open();
-    if ( !fileExists ) {
+    if ( !fileExists ) {                    // use exception handler
         cout << "unable to open file" ;
     }
     return fileExists;
@@ -183,12 +179,12 @@ int main(int argc, char* argv[]) {
     ifstream file;
     string FILENAME = "sowpods.txt";
     if ( openFile(FILENAME,file)) {
-        ScrabbleWordSuggestor scrabbleSuggestor("apple*d", file);
-        scrabbleSuggestor.suggestWords();
+        ScrabbleWordSuggestor scrabble("apple*d", file);       // a method to setup the constructor
+        scrabble.suggestWords();
         cout << "======================================================================================================================" << endl;
         cout << "======================================================================================================================" << endl;
-        scrabbleSuggestor.generateScoredList("a**");
-        scrabbleSuggestor.suggestWords();
+        scrabble.generateScoredList("abcdef");
+        scrabble.suggestWords();
     }
     return 0;
 }
