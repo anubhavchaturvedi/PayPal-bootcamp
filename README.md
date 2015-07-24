@@ -1,5 +1,3 @@
-Scrabble Word Suggestor
+#PayPal bootcamp
 
-To find the words in descending order of points they would fetch in a game of scrabble for a given set of rack. 
-The rack can be of any length and may contain any number of blank tiles.
-The words suggested come from the sowpods dictionary.
+This repository is a collection of the work done during the bootcamp. The *CPP_codes* folder is for the codes written in C++ and the *Paypal_training* folder is a NetBeans project that is mainitaining the Java codes. 
