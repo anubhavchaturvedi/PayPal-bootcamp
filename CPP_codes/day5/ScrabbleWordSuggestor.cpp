@@ -23,7 +23,7 @@ private:
     map< int, vector<string> > scored_list;
     set < pair<string,int> > POWERSET_RACKS;
     string RACK_STRING;
-
+    string regExpression;
 private:
     int getCharScore(char ch) {
         return ALPHABET_SCORE[ ch - 'a' ];
@@ -187,6 +187,13 @@ public:
         }
     }
 };
+
+bool constraintPassed(string word)
+{
+  if (regex_match (word, regex(regExpression) ))
+    return true;
+return false;
+}
 
 int main(int argc, char* argv[]) {
    ifstream sowpodsFile;
