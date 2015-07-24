@@ -100,11 +100,12 @@ private:
         }
     }
 
-    vector<string> findInSowpodsMap(string key) {
+    vector<string> getAnagramListFromSowpodsMap(string key) {
+        vector<string> anagramList;
         if( sowpods.find(key) != sowpods.end() ) {
-            return sowpods.find( key )->second;
+            anagramList = sowpods.find( key )->second;
         }
-        return vector<string>();
+        return anagramList;
     }
 
     int computeScore(string str, int scoreCompensation) {
@@ -142,13 +143,13 @@ private:
 
         for ( pair<string,int> p : POWERSET_RACKS ) {
             int score = computeScore( p.first, NO_SCORE_COMPENSATION );
-            for ( string anagram : findInSowpodsMap( p.first ) ) {
+            for ( string anagram : getAnagramListFromSowpodsMap( p.first ) ) {
                 int scoreCompensation = p.second;
                 insertInScoredList( score - scoreCompensation, anagram);
             }
         }
     }
-    
+
     void addConstraintToRack(string constraint) {
     	for(int index = 0; index < constraint.length(); index++) {
     		char letter = constraint.at(index);
@@ -157,7 +158,7 @@ private:
 		}
 	}
     }
-	
+
     void removeConstraintFromRack(string constraint) {
 	for(int index = 0; index < constraint.length(); index++) {
 		char letter = constraint.at(index);
@@ -175,7 +176,7 @@ public:
     void suggestWords(string rack){
         generateScoredList(rack);
         int outputCount = 0;
-        
+
         for ( map<int, vector<string> >::reverse_iterator r = scored_list.rbegin(); r != scored_list.rend() && outputCount < NUMBER_OF_OUTPUT; ++r, outputCount++ ) {
 
             cout << r->first << "\t\t" ;
