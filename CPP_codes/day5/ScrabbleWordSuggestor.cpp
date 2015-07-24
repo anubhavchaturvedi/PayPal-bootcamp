@@ -11,6 +11,8 @@ using namespace std;
 
 const string EMPTY_TILE = "*";
 const int NO_SCORE_COMPENSATION = 0;
+const int NUMBER_OF_OUTPUT = 5;
+
 
 const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,4,8,4, 10};
 
@@ -173,7 +175,9 @@ public:
 
     void suggestWords(string rack){
         generateScoredList(rack);
-        for ( map<int, vector<string> >::reverse_iterator r = scored_list.rbegin(); r != scored_list.rend(); ++r ) {
+        int outputCount = 0;
+        
+        for ( map<int, vector<string> >::reverse_iterator r = scored_list.rbegin(); r != scored_list.rend() && outputCount < NUMBER_OF_OUTPUT; ++r, outputCount++ ) {
 
             cout << r->first << "\t\t" ;
             for ( string s : r->second ) {
