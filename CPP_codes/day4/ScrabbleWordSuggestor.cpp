@@ -1,6 +1,5 @@
 #include <iostream>
 #include <map>
-#include <string>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -11,24 +10,20 @@
 using namespace std;
 
 const string EMPTY_TILE = "*";
+const int NO_SCORE_COMPENSATION = 0;
 const int MAX_RACK_LENGTH = 7;
 
 const int ALPHABET_SCORE[] = {1,3,3,2, 1,4,2,4, 1,8,5,1,3, 1,1,3,10, 1,1,1,1, 4,4,8,4, 10};
 
 class ScrabbleWordSuggestor {
 
-public:
+private:
     map< string, vector<string> > sowpods;
     map< int, vector<string> > scored_list;
     set < pair<string,int> > POWERSET_RACKS;
-public:
     string RACK_STRING;
 
-    ScrabbleWordSuggestor(string rack, ifstream& sowpodsFile) {
-        generateSowpodsMap(sowpodsFile);
-        generateScoredList(rack);
-    }
-
+private:
     int getCharScore(char ch) {
         return ALPHABET_SCORE[ ch - 'a' ];
     }
@@ -100,7 +95,7 @@ public:
     void generateSowpodsMap(ifstream &file) {
         string word;
         while(getline(file, word)) {
-            if ( word.length() <=  MAX_RACK_LENGTH ) {
+            if ( word.length() <= MAX_RACK_LENGTH ) {
                 insertInMap(getSortedString(word), word);
             }
         }
@@ -149,14 +144,21 @@ public:
         generateBlankReplacedPowerSet(powerSet, POWERSET_RACKS);
 
         for ( pair<string,int> p : POWERSET_RACKS ) {
-            for ( string anagram : findInSowpodsMap(p.first)) {
-                int score = computeScore(anagram, p.second);
-                insertInScoredList(score, anagram);
+            int score = computeScore( p.first, NO_SCORE_COMPENSATION );
+            for ( string anagram : findInSowpodsMap( p.first ) ) {
+                int scoreCompensation = p.second;
+                insertInScoredList( score - scoreCompensation, anagram);
             }
         }
     }
 
-    void suggestWords(){
+public:
+    ScrabbleWordSuggestor(ifstream& sowpodsFile) {
+        generateSowpodsMap(sowpodsFile);
+    }
+
+    void suggestWords(string rack){
+        generateScoredList(rack);
         for ( map<int, vector<string> >::reverse_iterator r = scored_list.rbegin(); r != scored_list.rend(); ++r ) {
 
             cout << r->first << "\t\t" ;
@@ -169,18 +171,17 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-   ifstream file;
+   ifstream sowpodsFile;
    string FILENAME = "sowpods.txt";
 
    try
    {
-       file.open(FILENAME.c_str());
-       ScrabbleWordSuggestor scrabble("apple*d", file);
-       scrabble.suggestWords();
+       sowpodsFile.open(FILENAME.c_str());
+       ScrabbleWordSuggestor scrabble(sowpodsFile);
+       scrabble.suggestWords("apple*d");
        cout << "======================================================================================================================" << endl;
        cout << "======================================================================================================================" << endl;
-       scrabble.generateScoredList("abcdef");
-       scrabble.suggestWords();
+       scrabble.suggestWords("abcdef");
    }
     catch (std::ifstream::failure e) {
         std::cerr << "Exception opening/reading/closing file\n";
