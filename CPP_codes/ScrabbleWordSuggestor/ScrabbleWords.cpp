@@ -40,3 +40,7 @@ vector<string> ScrabbleWords::getAnagrams(string word) {
 	}
 	return anagrams;
 }
+
+string getSortedString(string str){
+    std::sort(word.begin(), word.end());
+    }
