@@ -1,6 +1,7 @@
 #include<map>
 #include<iostream>
 #include<fstream>
+#include<algorithm>
 #include<sstream>
 #include<vector>
 #include<string>
