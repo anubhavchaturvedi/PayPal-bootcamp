@@ -26,3 +26,7 @@ void ScrabbleWordSuggestor::insertInSowpodsMap(string key, string value)
             sowpods.insert ( std::pair<string, vector<string> >( key, newVector) );
         }
     }
+
+vector<string> getAnagram(string word) {
+	
+}
