@@ -12,8 +12,13 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
+					<Add directory="Dependencies/UnitTest++" />
 				</Compiler>
+				<Linker>
+					<Add library="Dependencies\Deliv\Release\libUnitTest++.a" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="../Dependencies/Deliv/Release/TestScrabbleWordSuggestor" prefix_auto="1" extension_auto="1" />
@@ -32,10 +37,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="TestScrabbleWordSuggestor.cpp" />
-		<Unit filename="TestScrabbleWordSuggestorMain.cpp" />
 		<Unit filename="ScrabbleWordSuggestor.cpp" />
 		<Unit filename="ScrabbleWordSuggestor.h" />
+		<Unit filename="TestScrabbleWordSuggestor.cpp" />
+		<Unit filename="TestScrabbleWordSuggestorMain.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />
