@@ -12,7 +12,7 @@ class ScrabbleWords {
   public: 
     ScrabbleWords(string);
     vector<string> getAnagrams(string);
-    bool isValidWord(string);'
+    bool isValidWord(string);
   private:
     string getSortedString(string);
     void insertInSowpodsMap(string, string);
