@@ -35,3 +35,11 @@ vector<string> ScrabbleWords::getAnagrams(string word) {
 	}
 	return anagrams;
 }
+
+int main() {
+	ScrabbleWords scr("sowpods.txt");
+	vector<string> a = scr.getAnagrams("friends");
+	for(string s : a) {
+		cout << s << endl;
+	}
+}
