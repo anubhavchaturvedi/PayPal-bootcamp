@@ -2,7 +2,10 @@
 
 using namespace std;
 
-ScrabbleConstraintProcessor::ScrabbleConstraintProcessor(string constraint)
+
+ScrabbleConstraintProcessor::ScrabbleConstraintProcessor() {}
+
+ScrabbleConstraintProcessor::addConstraint(string constraint)
 {
     constraintRegExp = generateConstraintRegExp(constraint);
 }
