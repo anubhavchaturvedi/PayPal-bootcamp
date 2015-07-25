@@ -53,7 +53,7 @@ class ScrabbleWordSuggestor
 
     public:
     ScrabbleWordSuggestor(string FILENAME);
-    void suggestWords(string rack, string constraint = "");
+    string suggestWords(string rack, string constraint = "");
     void addConstraint(string constraint);
 };
 

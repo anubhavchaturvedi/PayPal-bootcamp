@@ -243,7 +243,8 @@ int ScrabbleWordSuggestor::getCharScore(char ch) {
         this->rackRegExp = "";
     }
 
-    void ScrabbleWordSuggestor::suggestWords(string rack, string constraint) {      // removed default argument ""
+    string ScrabbleWordSuggestor::suggestWords(string rack, string constraint) {      // removed default argument ""
+        string suggestWords="";
         this->RACK_STRING = rack;
         if (constraint != "") {
             addConstraint(constraint);
@@ -257,10 +258,11 @@ int ScrabbleWordSuggestor::getCharScore(char ch) {
             cout << r->first << " " ;
             for ( string s : r->second )
             {
-                cout << s << " " ;
+                suggestWords+=s+" ";
             }
-            cout << endl;
         }
+
+        return suggestWords;
     }
 
     void ScrabbleWordSuggestor::addConstraint(string constraint)

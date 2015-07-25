@@ -42,9 +42,17 @@ namespace
         obj.rackRegExp = ".{0,1}a.{0,1}";
         const bool result=obj.isMatchesRegularExpression("cat");
         CHECK_EQUAL(true, result);
-
-
     }
 
+
+    TEST(check_suggested_words)
+    {
+        ifstream sowpodsFile;
+        string FILENAME = "sowpods.txt";
+
+            ScrabbleWordSuggestor scrabble(FILENAME);
+            const string result=scrabble.suggestWords("babul", "*all");
+        CHECK_EQUAL("ball lall ",result.c_str());
+    }
 
 }
