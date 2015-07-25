@@ -45,7 +45,16 @@ namespace
 
 
     }
+    TEST(angrams_Check)
+    {
+        vector<string> Actual_result;
+        Actual_result.push_back("abc");
+        Actual_result.push_back("cba");
+        Actual_result.push_back("bac");
+        vector<string> test_result= obj.getAnagramListFromSowpodsMap("abc");
+        CHECK_ARRAY_EQUAL(Actual_result,test_result,3);
 
+    }
 
 
 }
