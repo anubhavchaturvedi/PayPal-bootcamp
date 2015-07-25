@@ -4,7 +4,7 @@
 namespace
 {
 
-    ScrabbleWordSuggestor obj("sowpods.txt");
+    ScrabbleWordSuggestor obj("sowpods_test.txt");
     TEST(valid_score_check)
     {
         const int result=obj.computeScore("ab",0);
@@ -45,6 +45,7 @@ namespace
 
 
     }
+
 
 
 }
