@@ -12,7 +12,7 @@ int ScrabbleWordScore::getLetterScore(char letter)
 
 int ScrabbleWordScore::computeWordScore(string word)
 {
-
+        score=0;
         for ( int i = 0; i < word.length(); i++ )
         {
             char ch = word[i];
