@@ -188,3 +188,21 @@
 1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\win32\timehelpers.h
 	"../Config.h"
 
+1437802586 source:c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\scrabblewordsuggestor.cpp
+	"ScrabbleWordSuggestor.h"
+
+1437802586 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\scrabblewordsuggestor.h
+	<iostream>
+	<map>
+	<fstream>
+	<sstream>
+	<algorithm>
+	<vector>
+	<cmath>
+	<set>
+	<regex>
+
+1437802586 source:c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\testscrabblewordsuggestor.cpp
+	"UnitTest++.h"
+	"ScrabbleWordSuggestor.h"
+
