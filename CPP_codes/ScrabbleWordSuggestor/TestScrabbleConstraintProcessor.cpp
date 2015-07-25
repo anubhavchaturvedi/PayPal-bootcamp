@@ -11,5 +11,12 @@ namespace{
         CHECK_EQUAL(true, isConstraintPassed("cat"));
 
     }
+    
+     TEST(check_add_constraint)
+    {
+        ScrabbleConstraintProcessor obj=new ScrabbleConstraintProcessor();
+        obj.addConstraint("t..t")
+        CHECK_EQUAL(true, obj.isConstraintPassed("text"));
+    }
 
 }
