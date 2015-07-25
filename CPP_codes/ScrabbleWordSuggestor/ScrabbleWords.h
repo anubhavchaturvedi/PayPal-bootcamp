@@ -1,6 +1,10 @@
 #include<map>
+#include<fstream>
+#include<sstream>
 #include<vector>
 #include<string>
+
+using namespace std;
 
 class ScrabbleWords {
 
@@ -8,7 +12,8 @@ class ScrabbleWords {
   public: 
     ScrabbleWords(string);
     vector<string> getAnagrams(string);
-    bool isValidWord(string);
-    string getSortedString(string str);
-    void insertInSowpodsMap(string word);
+    bool isValidWord(string);'
+  private:
+    string getSortedString(string);
+    void insertInSowpodsMap(string, string);
 };

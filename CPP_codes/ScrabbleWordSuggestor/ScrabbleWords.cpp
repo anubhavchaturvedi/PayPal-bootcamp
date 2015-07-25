@@ -4,12 +4,12 @@ ScrabbleWords::ScrabbleWords(string filename) {
   ifstream sowpodsFile;
   sowpodsFile.open(filename.c_str());
   string word;
-  while(getline(file, word)) {
+  while(getline(sowpodsFile, word)) {
   	insertInSowpodsMap(getSortedString(word), word);
   }
 }
 
-void ScrabbleWordSuggestor::insertInSowpodsMap(string key, string value)
+void ScrabbleWords::insertInSowpodsMap(string key, string value)
     {
         map<string, vector<string> >::iterator it = sowpods.begin();
 
@@ -27,6 +27,11 @@ void ScrabbleWordSuggestor::insertInSowpodsMap(string key, string value)
         }
     }
 
-vector<string> getAnagrams(string word) {
-	
+vector<string> ScrabbleWords::getAnagrams(string word) {
+	string sortedWord = getSortedString(word);
+	vector<string> anagrams;
+	if(sowpods.find(sortedWord) != sowpods.end()) {
+		vector<string> anagrams = sowpods[sortedWord];
+	}
+	return anagrams;
 }
