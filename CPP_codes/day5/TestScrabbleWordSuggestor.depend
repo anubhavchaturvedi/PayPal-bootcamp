@@ -115,11 +115,32 @@
 	<set>
 	<regex>
 
+<<<<<<< HEAD
 1437793720 source:c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\testscrabblewordsuggestor.cpp
 	"UnitTest++.h"
 	"ScrabbleWordSuggestor.h"
 
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\unittest++.h
+=======
+1437792927 source:c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\scrabblewordsuggestor.cpp
+	"ScrabbleWordSuggestor.h"
+
+1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\scrabblewordsuggestor.h
+	<iostream>
+	<map>
+	<fstream>
+	<sstream>
+	<algorithm>
+	<vector>
+	<cmath>
+	<set>
+	<regex>
+
+1437792927 source:c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\testscrabblewordsuggestormain.cpp
+	"UnitTest++.h"
+
+1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\unittest++.h
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279
 	"Config.h"
 	"Test.h"
 	"TestList.h"
@@ -130,6 +151,7 @@
 	"TestRunner.h"
 	"TimeConstraint.h"
 
+<<<<<<< HEAD
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\config.h
 
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\test.h
@@ -144,6 +166,22 @@
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testresults.h
 
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testmacros.h
+=======
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\config.h
+
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\test.h
+	"TestDetails.h"
+
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testdetails.h
+
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testlist.h
+
+1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testsuite.h
+
+1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testresults.h
+
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testmacros.h
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279
 	"Config.h"
 	"ExecuteTest.h"
 	"AssertException.h"
@@ -151,18 +189,27 @@
 	"MemoryOutStream.h"
 	"Posix/SignalTranslator.h"
 
+<<<<<<< HEAD
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\executetest.h
+=======
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\executetest.h
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279
 	"TestDetails.h"
 	"MemoryOutStream.h"
 	"AssertException.h"
 	"CurrentTest.h"
 	"Posix/SignalTranslator.h"
 
+<<<<<<< HEAD
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\memoryoutstream.h
+=======
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\memoryoutstream.h
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279
 	"Config.h"
 	<sstream>
 	<cstddef>
 
+<<<<<<< HEAD
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\assertexception.h
 	<exception>
 
@@ -173,30 +220,58 @@
 	<signal.h>
 
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\checkmacros.h
+=======
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\assertexception.h
+	<exception>
+
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\currenttest.h
+
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\posix\signaltranslator.h
+	<setjmp.h>
+	<signal.h>
+
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\checkmacros.h
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279
 	"Checks.h"
 	"AssertException.h"
 	"MemoryOutStream.h"
 	"TestDetails.h"
 	"CurrentTest.h"
 
+<<<<<<< HEAD
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\checks.h
+=======
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\checks.h
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279
 	"Config.h"
 	"TestResults.h"
 	"MemoryOutStream.h"
 
+<<<<<<< HEAD
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testrunner.h
+=======
+1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\testrunner.h
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279
 	"Test.h"
 	"TestList.h"
 	"CurrentTest.h"
 
+<<<<<<< HEAD
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\timeconstraint.h
 	"TimeHelpers.h"
 
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\timehelpers.h
+=======
+1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\timeconstraint.h
+	"TimeHelpers.h"
+
+1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\timehelpers.h
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279
 	"Config.h"
 	"Posix/TimeHelpers.h"
 	"Win32/TimeHelpers.h"
 
+<<<<<<< HEAD
 1437764466 c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\posix\timehelpers.h
 	<sys/time.h>
 
@@ -206,3 +281,11 @@
 1437764466 source:c:\users\test\desktop\paypal-bootcamp\cpp_codes\day5\testscrabblewordsuggestormain.cpp
 	"UnitTest++.h"
 
+=======
+1437792926 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\posix\timehelpers.h
+	<sys/time.h>
+
+1437792927 c:\users\test\groupscrabble\paypal-bootcamp\cpp_codes\day5\dependencies\unittest++\win32\timehelpers.h
+	"../Config.h"
+
+>>>>>>> ce8027c21ae1719d5a9bd96e10aab62e668e4279

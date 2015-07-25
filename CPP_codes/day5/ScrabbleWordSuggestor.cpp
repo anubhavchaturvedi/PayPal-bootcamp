@@ -261,7 +261,6 @@ int ScrabbleWordSuggestor::getCharScore(char ch) {
                 suggestWords+=s+" ";
             }
         }
-
         return suggestWords;
     }
 

@@ -4,7 +4,7 @@
 namespace
 {
 
-    ScrabbleWordSuggestor obj("sowpods.txt");
+    ScrabbleWordSuggestor obj("sowpods_test.txt");
     TEST(valid_score_check)
     {
         const int result=obj.computeScore("ab",0);
@@ -44,15 +44,26 @@ namespace
         CHECK_EQUAL(true, result);
     }
 
+    TEST(angrams_Check)
+    {
+        vector<string> Actual_result;
+        Actual_result.push_back("abc");
+        Actual_result.push_back("cba");
+        Actual_result.push_back("bac");
+        vector<string> test_result= obj.getAnagramListFromSowpodsMap("abc");
+        CHECK_ARRAY_EQUAL(Actual_result,test_result,3);
 
-    TEST(check_suggested_words)
+    }
+
+     TEST(check_suggested_words)
     {
         ifstream sowpodsFile;
         string FILENAME = "sowpods.txt";
 
-            ScrabbleWordSuggestor scrabble(FILENAME);
-            const string result=scrabble.suggestWords("babul", "*all");
+        ScrabbleWordSuggestor scrabble(FILENAME);
+        const string result=scrabble.suggestWords("babul", "*all");
         CHECK_EQUAL("ball lall ",result.c_str());
     }
+
 
 }
