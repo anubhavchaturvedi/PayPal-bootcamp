@@ -26,6 +26,11 @@ void ScrabbleWords::insertInSowpodsMap(string key, string value)
             sowpods.insert ( std::pair<string, vector<string> >( key, newVector) );
         }
     }
+    
+    
+    string getSortedString(string str){
+        std::sort(word.begin(), word.end());
+    }
 
 vector<string> ScrabbleWords::getAnagrams(string word) {
 	string sortedWord = getSortedString(word);
