@@ -27,6 +27,6 @@ void ScrabbleWordSuggestor::insertInSowpodsMap(string key, string value)
         }
     }
 
-vector<string> getAnagram(string word) {
+vector<string> getAnagrams(string word) {
 	
 }

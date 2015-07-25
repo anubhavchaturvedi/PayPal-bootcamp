@@ -1,14 +1,14 @@
 #include "ScrabbleConstraintProcessor.h"
 
+using namespace std;
 
 ScrabbleConstraintProcessor::ScrabbleConstraintProcessor(string constraint)
 {
- rackRegularExpression=generateConstraintRegExp(constraint);
+    constraintRegExp = generateConstraintRegExp(constraint);
 }
 
 string ScrabbleConstraintProcessor::generateConstraintRegExp(string constraint)
 {
-
         string startExp = "";
         string endExp = "";
         string midExp = "";
@@ -46,7 +46,7 @@ string ScrabbleConstraintProcessor::generateConstraintRegExp(string constraint)
 
 bool isConstraintPassed(string word){
     try {
-            return std::regex_match(word, std::regex(rackRegExp));
+            return std::regex_match(word, std::regex(constraintRegExp));
         }
     catch (const std::regex_error& e) {
         std::cout << "regex_error caught: " << e.what() << '\n';
@@ -55,4 +55,3 @@ bool isConstraintPassed(string word){
         }
     }
 }
-
